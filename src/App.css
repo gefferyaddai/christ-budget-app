@@ -1,3 +1,5 @@
+/* App.css */
+
 * {
     box-sizing: border-box;
 }
@@ -13,7 +15,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 24px;
-    position: relative; /* needed for desktop ring positioning */
+    position: relative;
 }
 
 .header {
@@ -115,10 +117,9 @@ body {
     border: 1px solid #e5e7eb;
     border-radius: 12px;
     padding: 24px;
-
     display: flex;
     flex-direction: column;
-    min-height: 0; /* needed so .people-grid can scroll */
+    min-height: 0;
 }
 
 .section-header {
@@ -151,12 +152,10 @@ body {
     background: #15803d;
 }
 
-/* gift list grid + internal scroll */
 .people-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 16px;
-
     max-height: 380px;
     overflow-y: auto;
     padding-right: 6px;
@@ -183,7 +182,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 12px;
-
     animation: person-card-float 3.5s ease-in-out infinite;
 }
 
@@ -281,8 +279,7 @@ body {
     color: #6b7280;
 }
 
-/* ===== Budget ring (desktop defaults) ===== */
-
+/* Budget ring desktop default */
 .budget-ring-container {
     position: absolute;
     top: 32px;
@@ -329,8 +326,7 @@ body {
     transition: stroke-dashoffset 0.3s ease;
 }
 
-/* ===== Floating cards ===== */
-
+/* Float animation */
 @keyframes person-card-float {
     0%, 100% {
         transform: translateY(0);
@@ -340,10 +336,8 @@ body {
     }
 }
 
-/* ===== Mobile layout adjustments ===== */
-
+/* ✅ Mobile layout fix */
 @media (max-width: 768px) {
-    /* Stack main sections and control vertical order */
     .app {
         padding: 16px;
         display: flex;
@@ -359,20 +353,18 @@ body {
         order: 1;
     }
 
-    .budget-card {
-        order: 2;
-        width: 100%;
-    }
-
-    /* 🔽 Move ring BELOW budget card, full circle visible */
     .budget-ring-container {
-        order: 3;
+        order: 2; /* 👈 moved BEFORE budget card */
         position: static;
         margin: 4px 0 8px;
         display: flex;
         justify-content: center;
         align-items: center;
-        transform: none;
+    }
+
+    .budget-card {
+        order: 3; /* 👈 moved AFTER ring */
+        width: 100%;
     }
 
     .stats-grid {
@@ -406,4 +398,5 @@ body {
         grid-template-columns: 1fr;
         max-height: 260px;
     }
+
 }
