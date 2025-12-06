@@ -5,6 +5,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -13,6 +14,10 @@ body {
     background-size: cover;
     color: #1a1a1a;
 }
+
+
+
+
 
 
 .app {
@@ -27,11 +32,15 @@ body {
 }
 
 .title {
-    font-size: 28px;
-    font-weight: 600;
+    font-size: 50px;
+    font-weight: 700;
     margin: 0 0 8px 0;
-    color: #dc2626;
+    color: darkred; /* deep festive red */
+    font-family: 'Georgia', serif;
+    letter-spacing: 0.5px;
+
 }
+
 
 .subtitle {
     font-size: 15px;
@@ -325,7 +334,7 @@ body {
 }
 
 .ring-progress {
-    stroke: #16a34a;
+    stroke: Darkred;
     stroke-linecap: round;
     transition: stroke-dashoffset 0.3s ease;
 }
