@@ -281,17 +281,21 @@ body {
 
 /* Budget ring desktop default */
 .budget-ring-container {
-    position: absolute;
-    top: 32px;
-    right: 40px;
-    z-index: 2;
+    order: 2;
+    position: static;
+    margin: 12px auto; /* more breathing room */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible; /* ensure SVG isn't clipped */
 }
 
 .budget-ring {
-    position: relative;
-    width: 220px;
-    height: 220px;
+    width: 160px;
+    height: 160px;
+    overflow: visible; /* ensure inner SVG is fully visible */
 }
+
 
 .budget-ring svg {
     transform: rotate(-90deg);
