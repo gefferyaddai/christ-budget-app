@@ -1,4 +1,5 @@
 /* App.css */
+/* App.css */
 
 * {
     box-sizing: border-box;
@@ -281,21 +282,17 @@ body {
 
 /* Budget ring desktop default */
 .budget-ring-container {
-    order: 2;
-    position: static;
-    margin: 12px auto; /* more breathing room */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: visible; /* ensure SVG isn't clipped */
+    position: absolute;
+    top: 32px;
+    right: 40px;
+    z-index: 2;
 }
 
 .budget-ring {
-    width: 160px;
-    height: 160px;
-    overflow: visible; /* ensure inner SVG is fully visible */
+    position: relative;
+    width: 220px;
+    height: 220px;
 }
-
 
 .budget-ring svg {
     transform: rotate(-90deg);
@@ -340,7 +337,7 @@ body {
     }
 }
 
-/* ✅ Mobile layout fix */
+
 @media (max-width: 768px) {
     .app {
         padding: 16px;
@@ -358,16 +355,18 @@ body {
     }
 
     .budget-ring-container {
-        order: 2; /* 👈 moved BEFORE budget card */
+        order: 2;
         position: static;
-        margin: 4px 0 8px;
+        margin: 12px auto;
         display: flex;
         justify-content: center;
         align-items: center;
+        min-height: 140px;
+        overflow: visible;
     }
 
     .budget-card {
-        order: 3; /* 👈 moved AFTER ring */
+        order: 3;
         width: 100%;
     }
 
@@ -381,26 +380,31 @@ body {
     }
 
     .budget-ring {
-        width: 160px;
-        height: 160px;
+        width: 120px;
+        height: 120px;
+        overflow: visible;
     }
 
     .budget-ring svg {
-        width: 160px;
-        height: 160px;
+        width: 120px;
+        height: 120px;
     }
 
     .budget-ring-percent {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .budget-ring-caption {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
     }
 
     .people-grid {
         grid-template-columns: 1fr;
         max-height: 260px;
     }
-
+}
+@media (max-width: 768px) {
+    .budget-ring-container {
+        display: none; /* 👈 Hide circle graph entirely on mobile */
+    }
 }
