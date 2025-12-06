@@ -65,31 +65,35 @@ function PersonCard({ person, index, updatePerson, onRemove }: PersonCardProps) 
     );
 }
 
+
 function BudgetRing({ percent }: { percent: number }) {
     const clamped = Math.max(0, Math.min(percent, 100));
-    const radius = 40;
-    const stroke = 8;
+
+    const radius = 90;          // was ~40–60
+    const stroke = 14;          // thicker stroke
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - (clamped / 100) * circumference;
 
     return (
         <div className="budget-ring">
-            <svg width="96" height="96">
-                {/* light grey full circle */}
+            <svg width={220} height={220}>   {/* was ~96 or 140 */}
                 <circle
                     className="ring-track"
-                    cx="48"
-                    cy="48"
+                    cx={110}
+                    cy={110}
                     r={radius}
                     strokeWidth={stroke}
                     fill="none"
                 />
-                {/* green full circle ON TOP */}
                 <circle
                     className="ring-progress"
-                    cx="48"
-                    cy="48"
+                    cx={110}
+                    cy={110}
                     r={radius}
                     strokeWidth={stroke}
                     fill="none"
+                    strokeDasharray={circumference}
+                    strokeDashoffset={offset}
                 />
             </svg>
             <div className="budget-ring-label">
