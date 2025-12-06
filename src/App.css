@@ -13,6 +13,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 24px;
+    position: relative; /* needed for desktop ring positioning */
 }
 
 .header {
@@ -114,6 +115,10 @@ body {
     border: 1px solid #e5e7eb;
     border-radius: 12px;
     padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* needed so .people-grid can scroll */
 }
 
 .section-header {
@@ -150,17 +155,34 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 16px;
+
+    /* scroll inside this section */
+    max-height: 380px;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+.people-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.people-grid::-webkit-scrollbar-thumb {
+    background: #9ca3af;
+    border-radius: 4px;
+}
+
+.people-grid::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
 }
 
 .person-card {
-    background: #f0fdf4;
-    border: 1px solid #bbf7d0;
+    background: #f4c2ca;
+    border: 3px solid #10a846;
     border-radius: 10px;
     padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-
 
     animation: person-card-float 3.5s ease-in-out infinite;
 }
@@ -259,69 +281,18 @@ body {
     color: #6b7280;
 }
 
-@media (max-width: 768px) {
-    .app {
-        padding: 16px;
-    }
+/* ===== Budget ring (desktop defaults) ===== */
 
-    .title {
-        font-size: 24px;
-    }
-
-    .people-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-
-/* Make the gift list scroll inside its section */
-.people-grid {
-    max-height: 380px;     /* adjust this to fit your screen */
-    overflow-y: auto;
-    padding-right: 6px;    /* prevents scrollbar from overlapping items */
-}
-
-/* Allow its parent card to shrink to fit */
-.main-card {
-    display: flex;
-    flex-direction: column;
-    min-height: 0;          /* VERY important for nested flex scrolling */
-}
-
-.people-grid::-webkit-scrollbar {
-    width: 6px;
-}
-
-.people-grid::-webkit-scrollbar-thumb {
-    background: #9ca3af;
-    border-radius: 4px;
-}
-
-.people-grid::-webkit-scrollbar-thumb:hover {
-    background: #6b7280;
-}
-/* Make app the reference point for top-right positioning */
-.app {
-    /* make sure this is here */
-    position: relative;
-}
-
-/* Top-right corner placement */
 .budget-ring-container {
     position: absolute;
-    top: 32px;      /* tweak up/down */
-    right: 40px;    /* tweak left/right */
+    top: 32px;
+    right: 40px;
     z-index: 2;
 }
 
-/* Bigger ring */
 .budget-ring {
     position: relative;
-    width: 220px;   /* match the SVG size */
+    width: 220px;
     height: 220px;
 }
 
@@ -329,7 +300,15 @@ body {
     transform: rotate(-90deg);
 }
 
-/* Text inside the ring a bit larger */
+.budget-ring-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .budget-ring-percent {
     font-size: 1.6rem;
     font-weight: 700;
@@ -339,28 +318,92 @@ body {
     font-size: 0.85rem;
     letter-spacing: 0.08em;
 }
+
 .ring-track {
-    stroke: #e5e7eb;      /* light gray background circle */
+    stroke: #e5e7eb;
 }
 
 .ring-progress {
-    stroke: #16a34a;      /* green progress */
+    stroke: #16a34a;
     stroke-linecap: round;
     transition: stroke-dashoffset 0.3s ease;
 }
-.budget-ring-label {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+
+/* ===== Floating cards ===== */
+
 @keyframes person-card-float {
     0%, 100% {
         transform: translateY(0);
     }
     50% {
         transform: translateY(-6px);
+    }
+}
+
+/* ===== Mobile layout adjustments ===== */
+
+@media (max-width: 768px) {
+    /* stack everything in a column and control order */
+    .app {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .header {
+        order: 1;
+    }
+
+    .budget-card {
+        order: 2;
+        width: 100%;
+    }
+
+    .stats-grid {
+        order: 3;
+        grid-template-columns: 1fr;
+    }
+
+    /* 🔽 move ring BELOW stats, centered, smaller */
+    .budget-ring-container {
+        order: 4;
+        position: static;
+        margin: 8px 0 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: none;
+    }
+
+    .budget-ring {
+        width: 140px;
+        height: 140px;
+    }
+
+    .budget-ring svg {
+        width: 140px;
+        height: 140px;
+    }
+
+    .budget-ring-percent {
+        font-size: 1.2rem;
+    }
+
+    .budget-ring-caption {
+        font-size: 0.7rem;
+    }
+
+    .main-card {
+        order: 5;
+    }
+
+    .people-grid {
+        grid-template-columns: 1fr;
+        max-height: 260px; /* keep internal scroll reasonable on small screens */
     }
 }
