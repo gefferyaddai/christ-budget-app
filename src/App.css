@@ -151,12 +151,12 @@ body {
     background: #15803d;
 }
 
+/* gift list grid + internal scroll */
 .people-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 16px;
 
-    /* scroll inside this section */
     max-height: 380px;
     overflow-y: auto;
     padding-right: 6px;
@@ -343,7 +343,7 @@ body {
 /* ===== Mobile layout adjustments ===== */
 
 @media (max-width: 768px) {
-    /* stack everything in a column and control order */
+    /* Stack main sections and control vertical order */
     .app {
         padding: 16px;
         display: flex;
@@ -364,30 +364,34 @@ body {
         width: 100%;
     }
 
-    .stats-grid {
-        order: 3;
-        grid-template-columns: 1fr;
-    }
-
-    /* 🔽 move ring BELOW stats, centered, smaller */
+    /* 🔽 Move ring BELOW budget card, full circle visible */
     .budget-ring-container {
-        order: 4;
+        order: 3;
         position: static;
-        margin: 8px 0 4px;
+        margin: 4px 0 8px;
         display: flex;
         justify-content: center;
         align-items: center;
         transform: none;
     }
 
+    .stats-grid {
+        order: 4;
+        grid-template-columns: 1fr;
+    }
+
+    .main-card {
+        order: 5;
+    }
+
     .budget-ring {
-        width: 140px;
-        height: 140px;
+        width: 160px;
+        height: 160px;
     }
 
     .budget-ring svg {
-        width: 140px;
-        height: 140px;
+        width: 160px;
+        height: 160px;
     }
 
     .budget-ring-percent {
@@ -398,12 +402,8 @@ body {
         font-size: 0.7rem;
     }
 
-    .main-card {
-        order: 5;
-    }
-
     .people-grid {
         grid-template-columns: 1fr;
-        max-height: 260px; /* keep internal scroll reasonable on small screens */
+        max-height: 260px;
     }
 }
